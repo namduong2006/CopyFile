@@ -22,7 +22,7 @@ namespace CopyFile
             FileInfo des = new FileInfo(destinationPath);
             try
             {
-                CopyFile(source, des);
+                CopyFileUsingFileInfo(source, des);
                 Console.WriteLine("Copy Completed");
             }
             catch (IOException e)
