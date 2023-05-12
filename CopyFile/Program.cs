@@ -32,10 +32,34 @@ namespace CopyFile
             }
             Console.ReadLine();
         }
-        private static void CopyFile(FileInfo source, FileInfo dest)
+        private static void CopyFileUsingFileInfo(FileInfo source, FileInfo dest)
         {
             Console.WriteLine("Start Copy using FileInfo");
             source.CopyTo(dest.FullName, true);
-        }       
+        }
+        private static void copyFileUsingStream(FileInfo source, FileInfo dest)
+        {
+            Console.WriteLine("Start Copy using Stream");
+            StreamReader reader = null;
+            StreamWriter writer = null;
+            try
+            {
+                reader = new StreamReader(source.FullName);
+                writer = new StreamWriter(dest.FullName);
+                Char[] buffer = new Char[1024];
+                int length;
+                while ((length = reader.Read(buffer)) > 0)
+                {
+                    writer.Write(buffer, 0, length);
+                }
+            }
+            finally
+            {
+                reader.Close();
+                reader.Dispose();
+                writer.Close();
+                writer.Dispose();
+            }
+        }
     }   
 }
